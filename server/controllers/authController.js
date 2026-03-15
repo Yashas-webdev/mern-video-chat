@@ -27,6 +27,27 @@ const registerUser = async (req, res) => {
             password
         });
 
+        console.log('newUser created:', newUser._id);
+
+        try {
+    const token = generateToken(newUser._id);
+    console.log('token generated:', token);
+    
+    res.status(201).json({
+        _id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+        avatar: newUser.avatar,
+        token: token
+    });
+} catch(tokenError) {
+    console.log('TOKEN ERROR:', tokenError.message);
+    res.status(500).json({ message: tokenError.message });
+}
+        console.log('newUser username:', newUser.username);
+        console.log('newUser email:', newUser.email);
+
+
         res.status(201).json({
             _id: newUser._id,
             username: newUser.username,

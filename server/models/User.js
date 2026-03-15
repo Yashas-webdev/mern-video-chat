@@ -1,60 +1,52 @@
-const mongoose = require('mongoose') // to use its Schema and model fucntions
-const bcrypt = require('bcryptjs') // to has passwords before saving them to hte database.
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
-    username : {
+    username: {
         type: String,
         required: true,
-        unique : true,
+        unique: true,
         trim: true,
         minlength: 3
     },
-
     email: {
-        type:String,
+        type: String,
         required: true,
         unique: true,
         trim: true,
         lowercase: true
     },
-
     password: {
         type: String,
-        required : true,
+        required: true,
         minlength: 6
     },
-
     avatar: {
         type: String,
         default: ''
     },
-
     isOnline: {
         type: Boolean,
         default: false
-    },
- }, {
-        timestamps: true
     }
-);
+}, { timestamps: true });
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function() {
+    console.log('pre save hook called');
     if (!this.isModified('password')) {
-        return next();
+        console.log('password not modified, skipping');
+        return;
     }
+    console.log('hashing password...');
     const salt = await bcrypt.genSalt(12);
     this.password = await bcrypt.hash(this.password, salt);
-    next();
-});  // This is a Mongoose pre-save hook — it runs automatically before every save. It checks if password was changed, and if yes, hashes it with bcrypt using 12 salt rounds. This means plain text passwords never reach the database.
+    console.log('password hashed successfully');
+});
 
 userSchema.methods.matchPassword = async function(enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password);  
-}
+    return await bcrypt.compare(enteredPassword, this.password);
+};
 
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
-
-
-
-
