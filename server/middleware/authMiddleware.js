@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken'); //to verify the token sent by the client.
 const User = require('../models/User'); //After verifying the token we fetch the actual user from MongoDB and attach it to the request.
 
-const protect = async( requestAnimationFrame, res, next) => {
+const protect = async( req, res, next) => {
     let token;
 
     if (req.headers.authorization && 
-        req.header.authorization.startsWith('Bearer')
+        req.headers.authorization.startsWith('Bearer')
     ){
         try {
             token = req.headers.authorization.split(' ')[1];

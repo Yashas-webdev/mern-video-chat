@@ -2,9 +2,9 @@ const mongoose = require('mongoose') // to use its Schema and model fucntions
 const bcrypt = require('bcryptjs') // to has passwords before saving them to hte database.
 
 const userSchema = new mongoose.Schema({
-    usename : {
+    username : {
         type: String,
-        require: true,
+        required: true,
         unique : true,
         trim: true,
         minlength: 3
@@ -38,9 +38,12 @@ const userSchema = new mongoose.Schema({
     }
 );
 
-userSchema.pre('save',async function(next) {
-    if(!this.isModified('password')) return next();
-    this.password = await bcrypt.hash(this.password, 12);
+userSchema.pre('save', async function(next) {
+    if (!this.isModified('password')) {
+        return next();
+    }
+    const salt = await bcrypt.genSalt(12);
+    this.password = await bcrypt.hash(this.password, salt);
     next();
 });  // This is a Mongoose pre-save hook — it runs automatically before every save. It checks if password was changed, and if yes, hashes it with bcrypt using 12 salt rounds. This means plain text passwords never reach the database.
 
