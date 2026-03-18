@@ -10,7 +10,7 @@ const useAuthStore = create(
             isLoading: false,
             error: null,
 
-            resister: async(username, email, password) => {
+            register: async(username, email, password) => {
                 set({isLoading: true, error: null});
                 try{
                     const {data} = await axios.post('/api/auth/register',{
@@ -48,3 +48,5 @@ const useAuthStore = create(
         }
     )
 )
+
+export default useAuthStore
