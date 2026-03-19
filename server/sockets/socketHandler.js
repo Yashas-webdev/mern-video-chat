@@ -65,4 +65,4 @@ const socketHandler = (io) => {
     })
 }
 
-Module.exports = socketHandler
+module.exports = socketHandler

@@ -4,6 +4,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes')
+const {Server} = require('socket.io')
+const socketHandler = require('./sockets/socketHandler')
 
 dotenv.config();
 connectDB();
@@ -11,6 +13,15 @@ connectDB();
 const app = express();
 
 const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors:{
+    origin:process.env.CLIENT_URL,
+    methods: ['GET','POST']
+  }
+})
+
+socketHandler(io)
 
 app.use(cors({
     origin: process.env.CLIENT_URL,
