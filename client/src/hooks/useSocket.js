@@ -15,5 +15,20 @@ const useSocket = () => {
     socektRef.current.on('connect',()=>{
         console.log('Socket connected:',socektRef.current.id)
     })
+
+    socektRef.current.on('connect_error',(error)=>{
+        console.error('Socket connection error:',error.message)
     })
+
+    return () => {
+        if(socektRef.current){
+            socektRef.current.disconnect()
+            console.log('Socket disconnected')
+        }
+    }
+    },[token])
+
+    return socektRef.current
 }
+
+export default useSocket
