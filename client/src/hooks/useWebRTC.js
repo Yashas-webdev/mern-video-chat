@@ -90,4 +90,18 @@ const useWebRTC = (socket, roomId, username) =>{
     socket.on('user-joined',async({socketId})=>{
         createPeerConnection(socketId)
     })
+
+    socket.on('offer',async ({offer,from})=>{
+        const pc = createPeerConnection(from)
+        await pc.setRemoteDescription(new RTCSessionDescription(offer))
+        const answer = await pc.createAnswer()
+        await pc.setLocalDescription(answer)       
+    })
+
+    socket.on('answer',async({answer,from})=>{
+        const pc = peerConnectionsRef.current[from]
+        if(pc) {
+            await pc.setRemoteDescription(new RTCSessionDescription(answer))
+        }
+    })
 }
