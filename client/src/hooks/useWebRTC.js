@@ -76,4 +76,18 @@ const useWebRTC = (socket, roomId, username) =>{
         }
         initializeRoom()
     })
+
+    socket.on('users-in-room', async(users) =>{
+        for(const user of users) {
+            const pc = createPeerConnection(user.socketId)
+            const offer = await pc.createOffer()
+            await pc.setLocalDescription(offer)
+            socket.emit('offer',{offer, to:user.socketId})
+        }
+
+    })
+
+    socket.on('user-joined',async({socketId})=>{
+        createPeerConnection(socketId)
+    })
 }
