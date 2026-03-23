@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState,useCallback } from "react";
 
 const ICE_SERVERS = {
-    iceSevers:[
+    iceServers:[
         {urls:'stun:stun.l.google.com:19302'}, //(session traversal utilities for NAT) is a service that tells ylur browser  you pulic IP address
         {urls:'stun:stun1.l.google.com:19302'}
     ]
@@ -13,7 +13,7 @@ const useWebRTC = (socket, roomId, username) =>{
     const localVideoRef = useRef(null)
     const [remoteStreams, setRemoteStreams] = useState([])
     const [isMuted, setIsMuted] = useState(false)
-    const [isVideOff, setIsVideoOff] = useState(flase)
+    const [isVideoOff, setIsVideoOff] = useState(false)
 
     const getLocalStream = useCallback(async()=>{
         try{
@@ -75,7 +75,7 @@ const useWebRTC = (socket, roomId, username) =>{
             socket.emit('join-room',{roomId, username})
         }
         initializeRoom()
-    })
+  
 
     socket.on('users-in-room', async(users) =>{
         for(const user of users) {
@@ -95,7 +95,8 @@ const useWebRTC = (socket, roomId, username) =>{
         const pc = createPeerConnection(from)
         await pc.setRemoteDescription(new RTCSessionDescription(offer))
         const answer = await pc.createAnswer()
-        await pc.setLocalDescription(answer)       
+        await pc.setLocalDescription(answer)   
+        socket.emit('answer',{answer, to: from})    
     })
 
     socket.on('answer',async({answer,from})=>{
@@ -104,4 +105,66 @@ const useWebRTC = (socket, roomId, username) =>{
             await pc.setRemoteDescription(new RTCSessionDescription(answer))
         }
     })
+
+    socket.on('ice-candidate', async ({candidate,from})=>{
+        const pc = peerConnectionsRef.current[from]
+        if(pc) {
+            await pc.addIceCandidate(new RTCIceCandidate(candidate))
+        }
+    })
+
+    socket.on('user-left',({socketId})=>{
+        if(peerConnectionsRef.current[socketId]){
+            peerConnectionsRef.current[socketId].close()
+            delete peerConnectionsRef.current[socketId]
+        }
+        setRemoteStreams(prev => 
+            prev.filter(s => s.socketId !== socketId)
+        )
+    })
+
+    return () => {
+      if (localStreamRef.current) {
+        localStreamRef.current.getTracks().forEach(track => track.stop())
+      }
+      Object.values(peerConnectionsRef.current).forEach(pc => pc.close())
+      socket.off('users-in-room')
+      socket.off('user-joined')
+      socket.off('offer')
+      socket.off('answer')
+      socket.off('ice-candidate')
+      socket.off('user-left')
+    }
+  }, [socket, roomId, username, getLocalStream, createPeerConnection])
+
+  const toggleMute = useCallback(()=>{
+    if(localStreamRef.current){
+        const audioTrack = localStreamRef.current.getAudioTracks()[0]
+        if (audioTrack) {
+            audioTrack.enabled = !audioTrack.enabled
+            setIsMuted(!audioTrack.enabled)
+        }
+    }
+  },[])
+
+  const toggleVideo = useCallback(()=>{
+    if(localStreamRef.current){
+        const videoTrack = localStreamRef.current.getVideoTracks()[0]
+        if (videoTrack){
+            videoTrack.enabled = !videoTrack.enabled
+            setIsVideoOff(!videoTrack.enabled)
+        }
+    }
+  },[])
+
+  return {
+    localVideoRef,
+    remoteStreams,
+    isMuted,
+    isVideoOff,
+    toggleMute,
+    toggleVideo
+  }
 }
+
+export default useWebRTC
