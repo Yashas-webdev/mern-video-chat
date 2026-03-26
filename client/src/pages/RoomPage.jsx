@@ -38,6 +38,17 @@ const RoomPage = () => {
                     </button>
                 </div>
             </div>
+       
+
+        <div className='flex-1 p-4 grid gap-4'
+        style={{
+            gridTemplateColumns: remoteStreams.length === 0
+            ? '1fr'
+            : remoteStreams.length === 1
+            ? 'repeate(2,1fr)'
+            :'repeate(3,1fr)'
+        }}></div>
+
         </div>
     )
 }
