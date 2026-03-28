@@ -63,8 +63,55 @@ const RoomPage = () => {
             </div>
 
 
+
+        
+        {remoteStreams.map(({socketId, stream})=>(
+            <div key={socketId} className='relative bg-gray-800 rounded-xl overflow-hidden aspect-video'>
+                <video 
+                   autoPlay
+                   playsInline
+                   className='w-full h-full object-cover'
+                   ref={el => {
+                    if(el) el.srccObject = stream
+                   }}
+                   />
+                   <div className='absolute bottom-2 left-2 bg-black bg-opacity-50 text=xs px-2 py-1 rounded'>
+                    Remote User
+                   </div>
+                   </div>
+        ))}
         </div>
 
+             <div className='bg-green-800 px-6 py-4 flex justify-center items-center gap-6 border-gray-700'>
+                <button
+                    onClick={toggleMute}
+                    className={`p-4 rounded-full text-white font-semibold transition-colors ${
+                        isMuted
+                        ? 'bg-red-600 hover:bg-red-700'
+                        :'bg-gray-600 hover:bg-gray-500'
+                    }`}
+                    >
+                        {isMuted ? 'Unmute' : 'Mute'}
+                    </button>
+
+                <button
+                  onClick={toggleVideo}
+                  className={`p-4 rounded-full text-white font-semibold transition-colors ${
+                    isVideoOff
+                    ? 'bg-red-600 hover:bg-red-700'
+                    : 'bg-gray-600 hover:bg-gray-500'
+                  }`}
+                >
+                    {isVideoOff ? 'Start Video' : 'Stop Video'}
+                </button>
+
+                <button
+                 onClick={handleLeaveCall}
+                 className='p-4 rounded-full bg-red-600 hover:bg-red-700 text-white font-semibold transition-colors'
+                >
+                   Leave
+                </button>
+             </div>
         </div>
     )
 }
