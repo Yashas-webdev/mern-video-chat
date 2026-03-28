@@ -47,7 +47,23 @@ const RoomPage = () => {
             : remoteStreams.length === 1
             ? 'repeate(2,1fr)'
             :'repeate(3,1fr)'
-        }}></div>
+        }}>
+
+            <div className='relative bg-gray-800 rounded-xl overflow-hidden aspect-video'>
+                <video 
+                   ref={localVideoRef}
+                   autoPlay
+                   muted
+                   playsInline
+                   className='w-full h-full object-cover'
+                   />
+                   <div className='absolute bottom-2 left-2b-black bg-opacity-50 text-white text-xs px-2 py-1 rounded'>
+                    You ({user?.username})
+                   </div>
+            </div>
+
+
+        </div>
 
         </div>
     )
