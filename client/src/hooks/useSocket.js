@@ -1,34 +1,35 @@
-import { useEffect,useRef } from "react";
-import {io} from 'socket.io-client'
+import { useEffect, useRef, useState } from "react"
+import { io } from 'socket.io-client'
 import useAuthStore from '../store/useAuthStore'
 
 const useSocket = () => {
-    const socektRef = useRef(null)
-    const {token} = useAuthStore()
+  const [socket, setSocket] = useState(null)
+  const token = useAuthStore(state => state.token)
 
-    useEffect(()=>{
-        if(!token) return
-        socektRef.current= io('http://localhost:5000',{
-            auth:{token}
-        })
+  useEffect(() => {
+    if (!token) return
 
-    socektRef.current.on('connect',()=>{
-        console.log('Socket connected:',socektRef.current.id)
+    const newSocket = io('http://localhost:5000', {
+      auth: { token }
     })
 
-    socektRef.current.on('connect_error',(error)=>{
-        console.error('Socket connection error:',error.message)
+    newSocket.on('connect', () => {
+      console.log('Socket connected:', newSocket.id)
     })
+
+    newSocket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error.message)
+    })
+
+    setSocket(newSocket)
 
     return () => {
-        if(socektRef.current){
-            socektRef.current.disconnect()
-            console.log('Socket disconnected')
-        }
+      newSocket.disconnect()
+      console.log('Socket disconnected')
     }
-    },[token])
+  }, [token])
 
-    return socektRef.current
+  return socket
 }
 
 export default useSocket

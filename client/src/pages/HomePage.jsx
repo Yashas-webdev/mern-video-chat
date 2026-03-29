@@ -1,34 +1,33 @@
-import { useState } from "react";  
-import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4} from 'uuid'
-import  useAuthStore from '../store/useAuthStore'
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { v4 as uuidv4 } from 'uuid'
+import useAuthStore from '../store/useAuthStore'
 
 const HomePage = () => {
-    const [roomId, setRoomId] = useState('')
-    const {user, logout} = useAuthStore
-    const navigate = useNavigate()
+  const [roomId, setRoomId] = useState('')
+  const user = useAuthStore(state => state.user)
+  const logout = useAuthStore(state => state.logout)
+  const navigate = useNavigate()
 
-    const handleCreateRoom = () => {
-        const newRoomId = uuidv4()
-        navigate(`/room/${newRoomId}`)
+  const handleCreateRoom = () => {
+    const newRoomId = uuidv4()
+    navigate(`/room/${newRoomId}`)
+  }
+
+  const handleJoinRoom = (e) => {
+    e.preventDefault()
+    if (roomId.trim()) {
+      navigate(`/room/${roomId.trim()}`)
     }
+  }
 
-    const handleJoinRoom = () => {
-        e.preventDefault()
-        if (roomId.trim()){
-            navigate(`/room/${roomId.trim()}`)
-        }
-    }
-
-    return (
+  return (
     <div className="min-h-screen bg-gray-900 text-white">
-
-        {/* Navbar */}
       <nav className="bg-gray-800 px-6 py-4 flex justify-between items-center border-b border-gray-700">
         <h1 className="text-xl font-bold text-blue-400">VideoChat</h1>
         <div className="flex items-center gap-4">
           <span className="text-gray-300 text-sm">
-            Welcome, {console.log('user object', user)}
+            Welcome, {user?.username}
           </span>
           <button
             onClick={logout}
@@ -39,7 +38,6 @@ const HomePage = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
       <div className="max-w-2xl mx-auto mt-20 px-4">
         <h2 className="text-3xl font-bold text-center mb-2">
           Start or Join a Video Call
@@ -48,7 +46,6 @@ const HomePage = () => {
           Create a new room or join an existing one
         </p>
 
-        {/* Create Room */}
         <div className="bg-gray-800 p-8 rounded-xl mb-6">
           <h3 className="text-xl font-semibold mb-2">Create a New Room</h3>
           <p className="text-gray-400 text-sm mb-4">
@@ -62,7 +59,6 @@ const HomePage = () => {
           </button>
         </div>
 
-        {/* Join Room */}
         <div className="bg-gray-800 p-8 rounded-xl">
           <h3 className="text-xl font-semibold mb-2">Join Existing Room</h3>
           <p className="text-gray-400 text-sm mb-4">
@@ -84,7 +80,6 @@ const HomePage = () => {
             </button>
           </form>
         </div>
-
       </div>
     </div>
   )
