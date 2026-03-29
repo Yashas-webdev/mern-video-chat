@@ -1,11 +1,11 @@
-import { useeParams , useNavigate, useParams} from 'react-router-dom'
+import { useParams , useNavigate} from 'react-router-dom'
 import useAuthStore from '../store/useAuthStore'
 import useSocket from '../hooks/useSocket'
 import useWebRTC from '../hooks/useWebRTC'
 
 const RoomPage = () => {
-    const {roomId} = useParams
-    const navigate = useNavigate
+    const {roomId} = useParams()
+    const navigate = useNavigate()
     const {user} = useAuthStore()
     const socket = useSocket()
 
@@ -45,8 +45,8 @@ const RoomPage = () => {
             gridTemplateColumns: remoteStreams.length === 0
             ? '1fr'
             : remoteStreams.length === 1
-            ? 'repeate(2,1fr)'
-            :'repeate(3,1fr)'
+            ? 'repeat(2,1fr)'
+            :'repeat(3,1fr)'
         }}>
 
             <div className='relative bg-gray-800 rounded-xl overflow-hidden aspect-video'>
@@ -57,8 +57,8 @@ const RoomPage = () => {
                    playsInline
                    className='w-full h-full object-cover'
                    />
-                   <div className='absolute bottom-2 left-2b-black bg-opacity-50 text-white text-xs px-2 py-1 rounded'>
-                    You ({user?.username})
+                   <div className='absolute bottom-2 left-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded'>
+                    You ({user?.username || user?.user?.username})
                    </div>
             </div>
 
@@ -72,17 +72,17 @@ const RoomPage = () => {
                    playsInline
                    className='w-full h-full object-cover'
                    ref={el => {
-                    if(el) el.srccObject = stream
+                    if(el) el.srcObject = stream
                    }}
                    />
-                   <div className='absolute bottom-2 left-2 bg-black bg-opacity-50 text=xs px-2 py-1 rounded'>
+                   <div className='absolute bottom-2 left-2 bg-black bg-opacity-50 text-xs px-2 py-1 rounded'>
                     Remote User
                    </div>
                    </div>
         ))}
         </div>
 
-             <div className='bg-green-800 px-6 py-4 flex justify-center items-center gap-6 border-gray-700'>
+             <div className='bg-gray-800 px-6 py-4 flex justify-center items-center gap-6 border-gray-700'>
                 <button
                     onClick={toggleMute}
                     className={`p-4 rounded-full text-white font-semibold transition-colors ${

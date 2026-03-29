@@ -44,7 +44,8 @@ const useAuthStore = create(
             clearError: () => set({error: null}),
         }),
         {
-            name: 'auth-storage'
+            name: 'auth-storage',
+            partialize: (state) => ({user: state.user, token: state.token}),
         }
     )
 )

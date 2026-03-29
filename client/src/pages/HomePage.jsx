@@ -28,7 +28,7 @@ const HomePage = () => {
         <h1 className="text-xl font-bold text-blue-400">VideoChat</h1>
         <div className="flex items-center gap-4">
           <span className="text-gray-300 text-sm">
-            Welcome, {user?.username}
+            Welcome, {console.log('user object', user)}
           </span>
           <button
             onClick={logout}
