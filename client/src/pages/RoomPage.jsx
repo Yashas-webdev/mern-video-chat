@@ -33,7 +33,7 @@ const RoomPage = () => {
 
       {/* Navbar */}
       <div className="bg-gray-900 border-b border-gray-800 px-6 py-3 flex justify-between items-center">
-        <h1 className="text-white font-bold text-lg text-blue-400">VideoChat</h1>
+        <h1 className=" font-bold text-lg text-blue-400">VideoChat</h1>
         <div className="flex items-center gap-3">
           <button
             onClick={copyRoomId}
