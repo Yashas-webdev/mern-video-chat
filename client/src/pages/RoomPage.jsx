@@ -29,7 +29,7 @@ const RoomPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 flex flex-col">
+    <div className="h-screen bg-gray-950 flex flex-col overflow-hidden">
 
       {/* Navbar */}
       <div className="bg-gray-900 border-b border-gray-800 px-6 py-3 flex justify-between items-center">
@@ -55,7 +55,7 @@ const RoomPage = () => {
 
       {/* Video Grid */}
       <div
-        className="flex-1 p-4 grid gap-4"
+        className="flex-1 overflow-hidden p-4 grid gap-4"
         style={{
           gridTemplateColumns: remoteStreams.length === 0
             ? '1fr'
@@ -65,13 +65,13 @@ const RoomPage = () => {
         }}
       >
         {/* Local Video */}
-        <div className="relative bg-gray-900 rounded-2xl overflow-hidden aspect-video border border-gray-800">
+        <div className="relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 h-full">
           <video
             ref={localVideoRef}
             autoPlay
             muted
             playsInline
-            className="w-full h-full object-cover"
+            className="w-full h-full max-h-full object-cover"
           />
           {isVideoOff && (
             <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
