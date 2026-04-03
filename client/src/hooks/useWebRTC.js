@@ -157,13 +157,68 @@ const useWebRTC = (socket, roomId, username) =>{
     }
   },[])
 
+  const shareScreen = useCallback(async ()=>{
+    try{
+        const screenStream = await navigator.mediaDevices.getDisplayMedia({
+            video: true,
+            audio: false
+        })
+
+        const screenTrack = screenStream.getVideoTracks()[0]
+
+        if(localvideoRef.current){
+            localVideoRef.current.srcObject = screenStream
+        }
+        Object.values(peerConnectionsRef.current).forEach(pc =>{
+            const sender = pc.getSenders().find(s => s.track?.kind === 'video')
+             if(sender) sender.replaceTrack(screenTrack)
+        })
+        
+        screenTrack.onended = () =>{
+            stropScreenShare()
+        }
+    }catch(error){
+        console.error('Error sharing screen:',error)
+    }
+  },[])
+
+  const stopScreenShare = useCallback(async () =>{
+    try{
+        const cameraStream = await navigator.mediDevices.getUserMedia({
+            video : true,
+            audio: false
+        })
+
+        const cameraTrack = camerastream.getVideoTracks()[0]
+
+        if(localVideoRef.current){
+            const currentStream = localVideoRef.current.srcObject
+            if (currentStream){
+                const audioTracks = currentStream.getAudioTracks()
+                const newStream = new MediaStream([cameraTrack, ...audioTracks])
+                localVideoRef.current.srcObject = newStream
+                localStreamRef.current = newStream
+            }
+        }
+
+        Object.values(peerConnectionsRef.current).forEach(pc => {
+            const sender = pc.getSenders().find(s => s.track?.kind === 'video')
+            if (sender) sender.replaceTrack(cameraTrack)
+        })
+    }catch (error){
+        console.log('Error stopping screen share:',error)
+    }
+  },[])
+
   return {
     localVideoRef,
     remoteStreams,
     isMuted,
     isVideoOff,
     toggleMute,
-    toggleVideo
+    toggleVideo,
+    shareScreen,
+    stopScreenShare
   }
 }
 

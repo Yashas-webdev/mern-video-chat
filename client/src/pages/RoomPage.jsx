@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
+import {useState} from 'react'
 import useAuthStore from '../store/useAuthStore'
 import useSocket from '../hooks/useSocket'
 import useWebRTC from '../hooks/useWebRTC'
@@ -15,12 +16,25 @@ const RoomPage = () => {
     isMuted,
     isVideoOff,
     toggleMute,
-    toggleVideo
+    toggleVideo,
+    shareScreen,
+    stopScreenShare
   } = useWebRTC(socket, roomId, user?.username)
+  const [isShareing, setIsSharing] = useState(false)
 
   const handleLeaveCall = () => {
     if (socket) socket.disconnect()
     navigate('/')
+  }
+
+  const handleScreenShare = async () => {
+    if(isSharing){
+        await stopScreenShare()
+        setIsSharing(false)
+    }else{
+        await shareScreen()
+        setIsSharing(true)
+    }
   }
 
   const copyRoomId = () => {
