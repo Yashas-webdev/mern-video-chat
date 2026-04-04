@@ -101,6 +101,14 @@ const socketHandler = (io) => {
                     })
                 }
             })
+
+            handQueues.forEach((queue,roomId)=>{
+                const updatedQueue = queue.filter(u => u.socketId !== socket.id)
+                if(updatedQueue.length !== queue.length){
+                    handQueues.set(roomId, updatedQueue)
+                    io.to(roomId).emit('hand-queue-updated',updatedQueue)
+                }
+            })
         })
     })
 }
