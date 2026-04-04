@@ -43,6 +43,16 @@ const socketHandler = (io) => {
               io.to(roomId).emit('hand-queue-updated',queue)
         })
 
+        socket.on('lower-hand',({roomId})=>{
+            if(!handQueues.has(roomId)) return
+
+            const queue = handQueues.get(roomId)
+            const updatedQueue = queue.filter(u => u.socketId !== socket.id)
+            handQueues.set(roomId, updatedQueue)
+
+            io.to(roomId).emit('hand-queue-updated',updatedQueue)
+        })
+
         
 
         socket.on('offer',({offer, to})=>{
