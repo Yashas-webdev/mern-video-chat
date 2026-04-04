@@ -1,5 +1,6 @@
 const socketHandler = (io) => {
     const rooms = new Map()
+    const handQueues = new Map()
     io.on('connection',(socket)=>{
         console.log(`User connected: ${socket.id}`)
         socket.on('join-room',({roomId, username})=>{
@@ -24,6 +25,25 @@ const socketHandler = (io) => {
             console.log(`${username} joined room: ${roomId}`               
             )
         })
+
+        socket.on('raise-hand',({roomId,username})=>{
+            if(!handQueues.has(roomId)){
+                handQueues.set(roomId,[])
+            }
+
+            const queue = handQueues.get(roomId)
+            const alreadyRaised = queue.find(u => u.socket === socket.id)
+            if(alreadyRaised) return
+              queue.push({
+                socketId: socket.id,
+                username,
+                timestamp: Date.now()
+              })
+
+              io.to(roomId).emit('hand-queue-updated',queue)
+        })
+
+        
 
         socket.on('offer',({offer, to})=>{
             socket.to(to).emit('offer',{
