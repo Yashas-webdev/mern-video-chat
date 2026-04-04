@@ -53,7 +53,17 @@ const socketHandler = (io) => {
             io.to(roomId).emit('hand-queue-updated',updatedQueue)
         })
 
-        
+        socket.on('allow-to-speak',({roomId, targetSocketId})=>{
+            if(!handQueues.has(roomId)) return 
+            const queue = handQueues.get(roomId)
+            const updatedQueue = queue.filter(u => u.socketId !== targetSocketId)
+            handQueues.set(roomId, updatedQueue)
+
+            io.to(roomId).emit('hand-queue-updated',updatedQueue)
+            io.to(targetSocketId).emit('you-can-speak')
+        })
+
+
 
         socket.on('offer',({offer, to})=>{
             socket.to(to).emit('offer',{
