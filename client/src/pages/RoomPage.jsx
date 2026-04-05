@@ -88,6 +88,7 @@ const RoomPage = () => {
       {/* Video Grid */}
       <div
         className="flex-1 overflow-hidden p-4 grid gap-4"
+        
         style={{
           gridTemplateColumns: remoteStreams.length === 0
             ? '1fr'
@@ -96,6 +97,28 @@ const RoomPage = () => {
             : 'repeat(3, 1fr)'
         }}
       >
+        {handQueue.length > 0 && (
+          <div className="bg-gray-900 border-b border-gray-800 px-6 py-3">
+            <div className='flex items-center gap-3 flex-wrap'>
+              <span className='text-yellow-400 text-sm font-medium flex items-center gap-1'>
+                🤚 Raised hands ({handQueue.length})
+              </span>
+              {handQueue.map((item,index)=>{
+                <div key={item.socketId} className='flex items-center gap-2 bg-gray-800 border border-gray-700 px-3 py-1.5 rounded-full'>
+                  <span className='text-white text-xs font-medium'>
+                    {index+1}.{item.username}
+                  </span>
+                  <button
+                      onClick={()=>allowToSpeak(item.socketId)}
+                      className='bg-green-600 hover:bg-green-500 text-white text-xs px-2 py-0.5 rounded-full transition-all'>
+                    Allow
+                  </button>
+                </div>
+              })}
+            </div>
+          </div>
+        )}
+        
         {/* Local Video */}
         <div className="relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 h-full">
           <video
