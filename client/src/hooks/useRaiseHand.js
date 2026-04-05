@@ -25,5 +25,31 @@ const useRaiseHand = (socket,roomId,username) =>{
         }
     },[socket])
 
-    
+    const raisehand = () =>{
+        if(!socket || isHandRaised) return
+        socket.emit('raise-hand',{roomId, username})
+        setIsHandRaised(true)
+    }
+
+    const lowerhand = () =>{
+        if(!socket || !isHandRaised) return
+        socket.emit('lower-hand',{roomId})
+        setIsHandRaised(false)
+    }
+
+    const allowToSpeak = (targetSocketId) =>{
+        if(!socket) return
+        socket.emit('allow-to-speak',{roomId,targetSocketId})
+    }
+
+    return {
+        handQueue,
+        isHandRaised,
+        canSpeak,
+        raisehand,
+        lowerhand,
+        allowToSpeak
+    }
 }
+
+export default useRaiseHand
