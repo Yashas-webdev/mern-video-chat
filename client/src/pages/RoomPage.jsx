@@ -3,6 +3,7 @@ import {useState} from 'react'
 import useAuthStore from '../store/useAuthStore'
 import useSocket from '../hooks/useSocket'
 import useWebRTC from '../hooks/useWebRTC'
+import useRaiseHand from '../hooks/useRaiseHand'
 
 const RoomPage = () => {
   const { roomId } = useParams()
@@ -20,6 +21,16 @@ const RoomPage = () => {
     shareScreen,
     stopScreenShare
   } = useWebRTC(socket, roomId, user?.username)
+
+  const {
+    handQueue,
+    isHandRaised,
+    canSpeak,
+    raiseHand,
+    lowerHand,
+    allowToSpeak
+  } = useRaiseHand(socket, roomId, user?.username)
+
   const [isSharing, setIsSharing] = useState(false)
 
   const handleLeaveCall = () => {
@@ -43,7 +54,14 @@ const RoomPage = () => {
   }
 
   return (
-    <div className="h-screen bg-gray-950 flex flex-col overflow-hidden">
+    <div className="h-screen bg-gray-950 flex flex-col overflow-hidden relative">
+
+      {canSpeak && (
+        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-50 bg-green-600 text-white px-6 py-3 rounded-2xl shadow-lg flex items-center gap-3 animate-bounce">
+          <span className='text-2xl'>🎙️</span>
+          <span className='font-semibold'>You can speak now!</span>
+        </div>
+      )}
 
       {/* Navbar */}
       <div className="bg-gray-900 border-b border-gray-800 px-6 py-3 flex justify-between items-center">
