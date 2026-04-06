@@ -213,6 +213,21 @@ const RoomPage = () => {
           <span className="text-white text-xs">Leave</span>
         </button>
 
+        {/* Raise Hand Button */}
+        <button
+           onClick={isHandRaised ? lowerHand : raiseHand}
+           className={`flex flex-col items-center gap-1 p-4 rounded-2xl transition-all ${
+           isHandRaised
+            ? 'bg-yellow-500 hover:bg-yellow-400'
+            : 'bg-gray-800 hover:bg-gray-700 border border-gray-700'
+           }`}
+        >
+          <span className='text-2xl'>🤚</span>
+          <span className='text-white text-xs'>
+            {isHandRaised ? 'Lower Hand' : 'Raise Hand'}
+          </span>
+        </button>
+
         {/*Screen Share button*/}
         <button 
            onClick={handleScreenShare}
