@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import useAuthStore from '../store/useAuthStore'
 import useSocket from '../hooks/useSocket'
 import useWebRTC from '../hooks/useWebRTC'
@@ -103,7 +103,7 @@ const RoomPage = () => {
               <span className='text-yellow-400 text-sm font-medium flex items-center gap-1'>
                 🤚 Raised hands ({handQueue.length})
               </span>
-              {handQueue.map((item,index)=>{
+              {handQueue.map((item,index)=>(
                 <div key={item.socketId} className='flex items-center gap-2 bg-gray-800 border border-gray-700 px-3 py-1.5 rounded-full'>
                   <span className='text-white text-xs font-medium'>
                     {index+1}.{item.username}
@@ -114,7 +114,7 @@ const RoomPage = () => {
                     Allow
                   </button>
                 </div>
-              })}
+              ))}
             </div>
           </div>
         )}

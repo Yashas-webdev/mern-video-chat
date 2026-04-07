@@ -1,4 +1,4 @@
-import {useSate, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 
 const useRaiseHand = (socket,roomId,username) =>{
     const [handQueue,setHandQueue] = useState([])   //to stores the array of all users who have rasied their hands.
