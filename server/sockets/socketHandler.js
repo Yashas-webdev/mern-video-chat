@@ -104,7 +104,7 @@ const socketHandler = (io) => {
             const transcript = transcripts.get(roomId) || []
             socket.emit('full-transcript',transcript)
         })
-        
+
         socket.on('disconnect',()=>{
             console.log(`User disconnected: ${socket.id}`)
             rooms.forEach((users, roomId)=>{
@@ -129,7 +129,11 @@ const socketHandler = (io) => {
                 }
             })
 
-            
+            rooms.forEach((users,roomId)=>{
+                if(users.length === 0){
+                    transcripts.delete(roomId)
+                }
+            })
         })
     })
 }
