@@ -100,6 +100,10 @@ const socketHandler = (io) => {
             socket.to(roomId).emit('transcript-update',{username,text})
         })
 
+        socket.on('get-transcript',({roomId})=>{
+            const transcript = transcripts.get(roomId) || []
+            socket.emit('full-transcript',transcript)
+        })
         
         socket.on('disconnect',()=>{
             console.log(`User disconnected: ${socket.id}`)
