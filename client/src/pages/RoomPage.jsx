@@ -65,7 +65,15 @@ const RoomPage = () => {
 
       {/* Navbar */}
       <div className="bg-gray-900 border-b border-gray-800 px-6 py-3 flex justify-between items-center">
-        <h1 className=" font-bold text-lg text-blue-400">VideoChat</h1>
+        <div className="flex items-center gap-3">
+          <h1 className="font-bold text-lg text-blue-400">VideoChat</h1>
+          <div className="flex items-center gap-1.5 bg-gray-800 border border-gray-700 px-3 py-1 rounded-full">
+            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+            <span className="text-gray-300 text-xs font-medium">
+              {remoteStreams.length + 1} participant{remoteStreams.length + 1 !== 1 ? 's' : ''}
+            </span>
+          </div>
+        </div>
         <div className="flex items-center gap-3">
           <button
             onClick={copyRoomId}
