@@ -1,6 +1,7 @@
 const socketHandler = (io) => {
     const rooms = new Map()
     const handQueues = new Map()
+    const transcripts = new Map()
     io.on('connection',(socket)=>{
         console.log(`User connected: ${socket.id}`)
         socket.on('join-room',({roomId, username})=>{
@@ -86,6 +87,20 @@ const socketHandler = (io) => {
             })
         })
 
+        socket.on('transcript-update',({roomId,username,text})=>{
+            if(!transcripts.has(roomId)){
+                transcripts.set(roomId,[])
+            }
+            transcripts.get(roomId).push({
+                username,
+                text,
+                timestamp: Date.now()
+            })
+
+            socket.to(roomId).emit('transcript-update',{username,text})
+        })
+
+        
         socket.on('disconnect',()=>{
             console.log(`User disconnected: ${socket.id}`)
             rooms.forEach((users, roomId)=>{
@@ -109,6 +124,8 @@ const socketHandler = (io) => {
                     io.to(roomId).emit('hand-queue-updated',updatedQueue)
                 }
             })
+
+            
         })
     })
 }
