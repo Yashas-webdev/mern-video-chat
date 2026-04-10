@@ -66,4 +66,13 @@ const useSpeechRecognition = (socket, roomId, username) =>{
             socket.off('transcript-update')
         }
     },[socket])
+
+    return {
+        isListening,
+        localTranscript,
+        startListening,
+        stopListening,
+    }
 }
+
+export default useSpeechRecognition
