@@ -53,4 +53,17 @@ const useSpeechRecognition = (socket, roomId, username) =>{
             setIsListening(true)
         }
     }
+
+    useEffect(()=>{
+        if(!socket) return
+
+        socket.on('transcript-update',({username: remoteUsername, text})=>{
+            const entry = {username: remoteUsername, text, timestamp: Date.now()}
+            setLocalTranscript(prev => [...prev,entry])
+        })
+
+        return () => {
+            socket.off('transcript-update')
+        }
+    },[socket])
 }
