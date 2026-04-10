@@ -33,7 +33,7 @@ const useSpeechRecognition = (socket, roomId, username) =>{
             setIsListening(false)
         }
 
-        recognitioReft.current = recognition
+        recognitioRef.current = recognition
 
         return () => {
             recognition.stop()
@@ -43,6 +43,13 @@ const useSpeechRecognition = (socket, roomId, username) =>{
     const startListening = () =>{
         if(recognitionRef.current && !isListening){
             recognitioReft.current.start()
+            setIsListening(true)
+        }
+    }
+
+    const stopListening = () =>{
+        if(recognitionRef.current && isListening){
+            recognitionRef.current.start()
             setIsListening(true)
         }
     }
