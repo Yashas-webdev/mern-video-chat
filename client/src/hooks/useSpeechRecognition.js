@@ -39,4 +39,11 @@ const useSpeechRecognition = (socket, roomId, username) =>{
             recognition.stop()
         }
     },[socket,roomId,username])
+
+    const startListening = () =>{
+        if(recognitionRef.current && !isListening){
+            recognitioReft.current.start()
+            setIsListening(true)
+        }
+    }
 }
