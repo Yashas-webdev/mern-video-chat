@@ -290,6 +290,18 @@ const RoomPage = () => {
           </span>
         </button>
 
+        {/* AI Summary Button */}
+
+        <button
+          onClick={()=> setShowSummary(true)}
+          className='flex flex-col items-center gap-1 p-4 rounded-2xl bg-purple-600 hover:bg-purple-500 transition-all'
+        >
+          <svg className='w-5 h-5 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.347.347a1 1 0 01-.707.293H7.73a1 1 0 01-.707-1z"/>
+          </svg>
+          <span className='text-white text-xs'>AI Summary</span>
+        </button>
+
       </div>
     </div>
   )
