@@ -4,6 +4,8 @@ import useAuthStore from '../store/useAuthStore'
 import useSocket from '../hooks/useSocket'
 import useWebRTC from '../hooks/useWebRTC'
 import useRaiseHand from '../hooks/useRaiseHand'
+import useSpeechRecognition from '../hooks/useSpeechRecognition'
+import MeetingSummary  from '../components/organisms/MeetingSummary'
 
 const RoomPage = () => {
   const { roomId } = useParams()
@@ -31,7 +33,15 @@ const RoomPage = () => {
     allowToSpeak
   } = useRaiseHand(socket, roomId, user?.username)
 
+  const {
+    isListening,
+    localTranscript,
+    startListening,
+    stopListening
+  } = useSpeechRecognition(socket, roomId, user?.username)
+
   const [isSharing, setIsSharing] = useState(false)
+  const [showSummary, setShowSummary] = useState(false)
 
   const handleLeaveCall = () => {
     if (socket) socket.disconnect()
