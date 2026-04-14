@@ -2,13 +2,15 @@ import { useState } from 'react'
 
 const MeetingSummary = ({transcript, onClose}) =>{
     const [summary, setSummary] = useState('')
-    const [isGenerating, setIsGenerating] = useState(fasle)
-}
+    const [isGenerating, setIsGenerating] = useState(false)
+
 
 
 const generateSummary = async() => {
     if(transcript.length === 0) return 
     setIsGenerating(true)
+}
+
 }
 
 const transcriptText = transcript.map(entry => `${entry.username}: ${entry.text}`).join('\n')
