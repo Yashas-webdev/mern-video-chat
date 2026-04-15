@@ -33,8 +33,8 @@ try{
     const data = await response.json()
     const summaryText = data.content[0].text
     setSummary(summaryText)
-}catch (err){
-    console.err('Error generating summary:',err)
+}catch (error){
+    console.error('Error generating summary:',err)
     setSummary('Error generating summary. Please try again.')
 }finally {
     setIsGenerating(false)
