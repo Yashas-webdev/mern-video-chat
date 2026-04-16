@@ -11,7 +11,7 @@ const generateSummary = async() => {
     setIsGenerating(true)
 }
 
-}
+
 
 const transcriptText = transcript.map(entry => `${entry.username}: ${entry.text}`).join('\n')
 
@@ -45,7 +45,7 @@ return (
         <div className='flex justify-between items-center px-6py-4 border-b border-gray-700'>
             <h2 className='text-white font-bold text-lg'>🤖 AI Meeting summary</h2> 
             <button onClick={onClose} className='text-gray-400 hover:text-white transition-colors'>
-                <svg className='w-5 h-5 fill="none" stroke="currentColor" veiwBox="0 0 24 24'>
+                <svg className='w-5 h-5 fill="none" stroke="currentColor" viewBox="0 0 24 24'>
                     <path strokeLinecap='round strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12'/>
                 </svg>
             </button>
@@ -60,7 +60,7 @@ return (
         ): (
             <div className='space-y-2 mb-4'>
                 <h3 className='text-gray-300 text-sm font-medium mb-3'>
-                    Transcipt ({transcript.lenth} entries)
+                    Transcipt ({transcript.length} entries)
                 </h3>
                 {transcript.map((entry,index)=>(
                     <div key={index} className='flex gap-2'>
@@ -100,5 +100,8 @@ return (
     </div>
 
 )
+
+
+}
 
 export default MeetingSummary
