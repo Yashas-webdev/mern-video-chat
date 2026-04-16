@@ -63,7 +63,7 @@ return (
                     Transcipt ({transcript.length} entries)
                 </h3>
                 {transcript.map((entry,index)=>(
-                    <div key={index} className='flex gap-2'>
+                    <div key={index} className='flex-gap-2'>
                         <span className='text-blue-400 text-xs font-medium min-w-20'>
                             {entry.username}
                         </span>
