@@ -34,7 +34,7 @@ try{
     const summaryText = data.content[0].text
     setSummary(summaryText)
 }catch (error){
-    console.error('Error generating summary:',err)
+    console.error('Error generating summary:',error)
     setSummary('Error generating summary. Please try again.')
 }finally {
     setIsGenerating(false)
@@ -84,9 +84,9 @@ return (
                         <circle className='opacity-25' cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
                         <path className='opacity-25' fill='currentColor' d="M412a8 8 0 018-8v8z"/>
                        </svg>
-                       Gnerating...
+                       Generating...
                     </>
-                ): '🤖 Genearting AI Summary'}
+                ): '🤖 Generating AI Summary'}
               </button>
               {summary && (
                 <button 
