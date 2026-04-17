@@ -42,7 +42,7 @@ try{
 
 return (
     <div className='fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4'>
-        <div className='flex justify-between items-center px-6py-4 border-b border-gray-700'>
+        <div className='flex justify-between items-center px-6 py-4 border-b border-gray-700'>
             <h2 className='text-white font-bold text-lg'>🤖 AI Meeting summary</h2> 
             <button onClick={onClose} className='text-gray-400 hover:text-white transition-colors'>
                 <svg className='w-5 h-5' fill="none" stroke="currentColor" viewBox="0 0 24 24">
