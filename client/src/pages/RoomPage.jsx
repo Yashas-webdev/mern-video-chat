@@ -276,7 +276,7 @@ const RoomPage = () => {
 
         <button
           onClick={isListening ? stopListening : startListening}
-          className={`flex flex-col items-center gap-1 p-4 roundex-2xl transition-all ${
+          className={`flex flex-col items-center gap-1 p-4 rounded-2xl transition-all ${
             isListening
              ? 'bg-red-600 hover:bg-red-500'
              : 'bg-gray-800 hover:bg-gray-700 border-gray-700'
