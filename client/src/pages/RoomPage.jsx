@@ -279,7 +279,7 @@ const RoomPage = () => {
           className={`flex flex-col items-center gap-1 p-4 rounded-2xl transition-all ${
             isListening
              ? 'bg-red-600 hover:bg-red-500'
-             : 'bg-gray-800 hover:bg-gray-700 border-gray-700'
+             : 'bg-gray-800 hover:bg-gray-700 border border-gray-700'
           }`}  
         >
           <svg className='w-5 h-5 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
