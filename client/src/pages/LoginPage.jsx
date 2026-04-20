@@ -31,7 +31,7 @@ const LoginPage = () => {
       <div className="w-full max-w-md">
 
         {/* Logo */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-9">
           <h1 className="text-4xl font-bold text-blue-400 mb-2">VideoChat</h1>
           <p className="text-gray-400 text-sm">Connect with anyone, anywhere</p>
         </div>
@@ -63,7 +63,7 @@ const LoginPage = () => {
             </div>
 
             <div>
-              <label className="text-gray-400 text-xs font-medium mb-1.5 block uppercase tracking-wider">
+              <label className="text-gray-500 text-xs font-medium mb-1.5 block uppercase tracking-wider">
                 Password
               </label>
               <input
@@ -93,7 +93,7 @@ const LoginPage = () => {
             </button>
           </form>
 
-          <p className="text-gray-500 text-center mt-6 text-sm">
+          <p className="text-gray-600 text-center mt-6 text-sm">
             Don't have an account?{' '}
             <Link to="/register" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
               Create one
