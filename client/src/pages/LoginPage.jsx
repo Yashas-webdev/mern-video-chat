@@ -33,7 +33,7 @@ const LoginPage = () => {
         {/* Logo */}
         <div className="text-center mb-9">
           <h1 className="text-4xl font-bold text-blue-400 mb-2">VideoChat</h1>
-          <p className="text-gray-400 text-sm">Connect with anyone, anywhere</p>
+          <p className="text-gray-500 text-sm">Connect with anyone, anywhere</p>
         </div>
 
         {/* Card */}
