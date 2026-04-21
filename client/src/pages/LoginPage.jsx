@@ -39,7 +39,7 @@ const LoginPage = () => {
         {/* Card */}
         <div className="bg-gray-900 border border-gray-800 p-8 rounded-2xl shadow-2xl">
           <h2 className="text-white text-2xl font-bold mb-1">Welcome back</h2>
-          <p className="text-gray-400 text-sm mb-6">Sign in to your account</p>
+          <p className="text-gray-500 text-sm mb-6">Sign in to your account</p>
 
           {error && (
             <div className="bg-red-500 bg-opacity-10 border border-red-500 border-opacity-30 text-red-400 p-3 rounded-lg mb-4 text-sm">
