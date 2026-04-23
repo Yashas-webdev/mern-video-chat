@@ -62,6 +62,24 @@ const LoginPage = () => {
               {error}
             </div>
           )}
+
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className='space-y-4'>
+            <div>
+              <label className='text-gray-600 text-sm font-medium mb-1.5 block'>
+                Email address
+              </label>
+              <input 
+                type='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className='w-full bg-gray-50 border border-gray-200 text-gray-900 p-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all placeholder-gray-300 text-sm'
+                placeholder='you@example.com'
+                required
+              />
+            </div>
+          </form>
         </div>
       </div>
     </div>
