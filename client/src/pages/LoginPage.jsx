@@ -79,6 +79,21 @@ const LoginPage = () => {
                 required
               />
             </div>
+
+            <div>
+              <label className='text-gray-600 text-sm font-medium mb-1.5 block'>
+                Password
+              </label>
+              <input 
+                type='password'
+                value={password}
+                onChange={(e)=>setPassword(e.target.value)}
+                className='w-full bg-gray-50 border border-gray-200 text-gray-50--900  p-3.5 roundex-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all placeholder-gray-300 text-sm'
+                placeholder='••••••••'
+                required
+              />
+            </div>
+            
           </form>
         </div>
       </div>
