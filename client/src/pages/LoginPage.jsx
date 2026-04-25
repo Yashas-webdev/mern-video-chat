@@ -110,6 +110,20 @@ const LoginPage = () => {
               ):'Sign In →'}
             </button>
             
+            {/* Divider */}
+            <div className='flex items-center gap-3 my-6'>
+              <div className='flex-1 h-px bg-gray-100'/>
+              <span className='text-gray-300 text-xs'>or</span>
+              <div className='flex-1 h-px bg-gray-100'/>  
+            </div>
+
+            <p className='text-gray-400 text-center text-sm'>
+              Don't have an account?{' '}
+              <Link to='/register' className='text-blue-600 hover:text-blue-700 font-semibold transiton-colors'>
+              Create one free
+              </Link>
+            </p>
+
           </form>
         </div>
       </div>
