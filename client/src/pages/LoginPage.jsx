@@ -109,6 +109,8 @@ const LoginPage = () => {
                 </span>
               ):'Sign In →'}
             </button>
+
+            </form>
             
             {/* Divider */}
             <div className='flex items-center gap-3 my-6'>
@@ -124,9 +126,14 @@ const LoginPage = () => {
               </Link>
             </p>
 
-          </form>
+          
         </div>
       </div>
+
+      {/* Botton tagline */}
+      <p className='absolute bottom-6 text-gray-400 text-xs'>
+        Secure • Peer-to-peer • No downloads required
+      </p>
     </div>
   )
    
