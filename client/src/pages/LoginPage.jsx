@@ -81,7 +81,7 @@ const LoginPage = () => {
             </div>
 
             <div>
-              <label className='text-gray-600 text-sm font-medium mb-1.5 block'>
+              <label className='text-gray-700 text-sm font-medium mb-1.5 block'>
                 Password
               </label>
               <input 
