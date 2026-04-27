@@ -74,7 +74,7 @@ const LoginPage = () => {
                 type='email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className='w-full bg-gray-50 border border-gray-300 text-gray-900 p-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all placeholder-gray-300 text-sm'
+                className='w-full bg-gray-60 border border-gray-300 text-gray-900 p-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all placeholder-gray-300 text-sm'
                 placeholder='you@example.com'
                 required
               />
