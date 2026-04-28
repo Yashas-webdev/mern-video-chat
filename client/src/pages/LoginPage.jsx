@@ -33,7 +33,7 @@ const LoginPage = () => {
       <div className='w-full max-w-md bg-white rounded-3xl shadow-xl overflow-hidden'>
 
         {/* Top accent bar */}
-        <div className='h-1.5 bg-gardient-to-r from-blue-500 via-blue-600 to-blue-5000'/>
+        <div className='h-1.5 bg-gardient-to-r from-blue-400 via-blue-600 to-blue-5000'/>
 
         <div className='p-10'>
 
